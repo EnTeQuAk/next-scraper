@@ -1,0 +1,29 @@
+version: "2.4"
+
+x-env-mapping: &env
+  environment:
+    - CELERY_BROKER_URL=redis://redis:6379/0
+    - CELERY_RESULT_BACKEND=redis://redis:6379/1
+    - DATABASE_URL=sqlite://database.db
+    - PYTHONDONTWRITEBYTECODE=1
+    - PYTHONUNBUFFERED=1
+    - TERM=xterm-256color
+    - DJANGO_SETTINGS_MODULE=next_scraper.conf.development
+
+services:
+  worker: &worker
+    <<: *env
+    build: .
+    command: supervisord -n -c /code/docker/supervisor-celery.conf
+    # user: scraper
+    volumes:
+      - .:/code
+    extra_hosts:
+     - "next_scraper.test:127.0.0.1"
+
+  web:
+    <<: *worker
+    command: supervisord -n -c /code/docker/supervisor.conf
+
+  redis:
+    image: redis:2.8

@@ -1,0 +1,10 @@
+[run]
+branch = True
+source = src/next_scraper/
+include = src/next_scraper*
+omit =
+    src/next_scraper/conf/*.py
+    src/next_scraper/settings.py
+    *urls.py
+    src/next_scraper/wsgi.py
+    *migrations*

@@ -1,0 +1,4 @@
+include README.rst LICENSE Makefile
+recursive-include tests *
+global-exclude *.pyc
+global-exclude *.pyo

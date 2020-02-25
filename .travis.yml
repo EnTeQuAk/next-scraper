@@ -1,0 +1,23 @@
+language: python
+python:
+  - '3.8'
+sudo: false
+
+env:
+  matrix:
+  - TOXENV=codestyle
+  - TOXENV=main
+
+services:
+  - redis-server
+
+cache:
+  apt: true
+  pip: true
+
+install:
+  - pip install tox
+  - make develop
+
+script:
+  - RUNNING_IN_CI=True tox -v
