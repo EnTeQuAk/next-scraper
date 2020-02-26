@@ -8,6 +8,7 @@ class APIClient(BaseAPIClient):
     Subclass to handle our custom accept headers required
     for proper versioning and data parsing.
     """
+
     content_type = "application/vnd.next_scraper+json"
     default_format = "json"
 

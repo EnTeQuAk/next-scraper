@@ -8,5 +8,6 @@ from celery import Celery
 
 celery = Celery("next_scraper")
 
-celery.config_from_object("django.conf:settings")
+celery.config_from_object("django.conf:settings", namespace="CELERY")
 celery.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+task = celery.task

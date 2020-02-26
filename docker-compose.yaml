@@ -4,7 +4,7 @@ x-env-mapping: &env
   environment:
     - CELERY_BROKER_URL=redis://redis:6379/0
     - CELERY_RESULT_BACKEND=redis://redis:6379/1
-    - DATABASE_URL=sqlite://database.db
+    - DATABASE_URL=psql://scraper:scraper@db/scraper
     - PYTHONDONTWRITEBYTECODE=1
     - PYTHONUNBUFFERED=1
     - TERM=xterm-256color
@@ -27,3 +27,9 @@ services:
 
   redis:
     image: redis:2.8
+
+  db:
+    image: postgres:12
+    environment:
+      - POSTGRES_USER=scraper
+      - POSTGRES_PASSWORD=scraper

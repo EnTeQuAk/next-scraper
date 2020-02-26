@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'next_scraper.conf.development')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "next_scraper.conf.development")
 
 application = get_asgi_application()

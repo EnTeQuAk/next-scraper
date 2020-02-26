@@ -6,7 +6,6 @@ import requests
 
 
 class APIError(Exception):
-
     def __init__(self, message):
         self.message = message
 
@@ -19,6 +18,7 @@ class APIError(Exception):
 
 class Client(requests.Session):
     """Proof of concept client implementation."""
+
     content_type = "application/vnd.next_scraper+json"
 
     host = "scrapy.io"

@@ -6,4 +6,5 @@ class JSONParser(JSONParser):
 
     This handles our custom media-type properly .
     """
+
     media_type = "application/vnd.next_scraper+json"

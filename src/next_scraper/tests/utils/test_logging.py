@@ -6,13 +6,11 @@ def test_func():
 
 
 class TestClass:
-
     def test(self):
         pass
 
 
 class TestGetLogger:
-
     def test_function(self):
         logger = get_logger(test_func)
         assert logger.name == "next_scraper.tests.utils.test_logging.test_func"

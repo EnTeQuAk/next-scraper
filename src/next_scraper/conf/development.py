@@ -10,13 +10,18 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "NOTSET", "class": "logging.StreamHandler", "formatter": "verbose"
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
         }
     },
     "loggers": {
-        "": {"handlers": ["console"], "level": "NOTSET"},
+        "": {"handlers": ["console"], "level": "DEBUG"},
         "django.request": {
-            "handlers": ["console"], "propagate": False, "level": "ERROR"
+            "handlers": ["console"],
+            "propagate": False,
+            "level": "ERROR",
         },
+        "celery": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
     },
 }

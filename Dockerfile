@@ -2,15 +2,18 @@ FROM python:3.8-slim-buster
 
 RUN apt-get update && apt-get install -y \
     gcc \
-    build-essential
+    build-essential \
+    libpq-dev
 
 ENV PIP_BUILD=/deps/build/
 ENV PIP_CACHE_DIR=/deps/cache/
 ENV PIP_SRC=/deps/src/
 
-# supervisord to run services
+# supervisord to run services, watchdog for celery autoreload
+# and ipython for easier debugging
 RUN pip install supervisor
 RUN pip install watchdog[watchmedo]
+RUN pip install ipython
 
 # Preserve bash history across image updates.
 # This works best when you link your local source code

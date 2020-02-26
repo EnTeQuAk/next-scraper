@@ -23,25 +23,22 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # Asyncronous worker support
     "celery",
-
     # For our REST Api
     "rest_framework",
-
     # next_scraper apps
     "next_scraper",
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
 ROOT_URLCONF = "next_scraper.urls"
@@ -50,28 +47,27 @@ WSGI_APPLICATION = "next_scraper.wsgi.application"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
             ],
         },
     },
 ]
 
-DATABASES = {"default": env.db_url(default="sqlite://next_scraper.db")}
+DATABASES = {"default": env.db_url(default="psql://scraper:@db/scraper")}
 
 # Run all views in a transaction unless they are decorated not to.
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 
 # Pool our database connections up for 300 seconds
 DATABASES["default"]["CONN_MAX_AGE"] = 300
-
 
 LANGUAGE_CODE = "en-us"
 
@@ -112,17 +108,15 @@ CELERY_TRACK_STARTED = True
 CELERY_IMPORTS = ("next_scraper.tasks.scraper",)
 
 CELERY_QUEUES = (
-    Queue("default", routing_key="default"), Queue("celery", routing_key="celery")
+    Queue("default", routing_key="default"),
+    Queue("celery", routing_key="celery"),
 )
 
 # Make our `LOGGING` configuration the only truth and don't let celery
 # overwrite it.
-CELERYD_HIJACK_ROOT_LOGGER = False
+CELERY_WORKER_HIJACK_ROOT_LOGGER = False
 
 # Don't log celery log-redirection as warning (default).
 # We manage our logging through `django.conf.settings.LOGGING` and
 # want that to be our first-citizen config.
 CELERY_REDIRECT_STDOUTS_LEVEL = "INFO"
-
-# Django security related settings.
-SECURE_SSL_REDIRECT = True

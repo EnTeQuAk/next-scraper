@@ -8,7 +8,6 @@ from next_scraper.tests.factories.user import UserFactory
 
 @pytest.mark.django_db(transaction=True)
 class TestTestClient:
-
     @pytest.fixture(autouse=True)
     def setup(self, settings, live_server):
         self.liveserver = live_server

@@ -53,8 +53,10 @@ test-failed:
 update-docker:
 	docker-compose exec web make develop
 
-initialize-docker: update-docker
+migrate-docker:
 	docker-compose exec web ./manage.py migrate
+
+initialize-docker: update-docker migrate
 
 shell:
 	docker-compose exec web bash
