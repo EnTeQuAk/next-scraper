@@ -2,8 +2,8 @@
 Scrape URL to find dead links
 =============================
 
-.. image:: https://travis-ci.org/EnTeQuAk/next_scraper.png?branch=master
-    :target: https://travis-ci.org/EnTeQuAk/next_scraper
+.. image:: https://travis-ci.com/EnTeQuAk/next-scraper.png?branch=master
+    :target: https://travis-ci.com/EnTeQuAk/next-scraper
     :alt: Travis build status
 
 

@@ -1,16 +1,15 @@
 from urllib.parse import urlparse
 
 import requests
+from celery import group
+from django.db.models import F
 from lxml import html
 from more_itertools import chunked
 from rest_framework.status import is_success
-from celery import group
 
-from django.db.models import F
-
+from ..models import COMPLETED, RUNNING, Report
+from ..utils.html import get_html_version_from_tree, pick_possible_login_form
 from . import task
-from ..models import Report, RUNNING, COMPLETED
-from ..utils.html import pick_possible_login_form, get_html_version_from_tree
 
 
 def _create_chunked_task_signatures(
@@ -76,8 +75,8 @@ def extract_information_from_page(page_url):
     links = [
         link
         for link in tree.xpath("//a/@href")
-        if not link.startswith("#")
-        and link not in ("javascript:;", "javascript:void(0)")
+        if not link.startswith("#") and
+        link not in ("javascript:;", "javascript:void(0)")
     ]
 
     # Now let's start fetching broken links from the page in the background
