@@ -7,6 +7,15 @@ Scrape URL to find dead links
     :alt: Travis build status
 
 
+This application allows analysis on a specific page, e.g to find broken links or to find out
+if there's a login form on that page.
+
+The application has been developed with Django, Celery and Django-Rest-Framework.
+
+The (local) deployment has been done with Docker and supervisord to manage the processes. See more documentation
+below.
+
+
 Documentation
 -------------
 
