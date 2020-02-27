@@ -3,6 +3,7 @@
 # General test libraries
 pytest==5.3.5
 pytest-django==3.8.0
+responses
 
 # Pep8 and code quality checkers
 flake8==3.7.9

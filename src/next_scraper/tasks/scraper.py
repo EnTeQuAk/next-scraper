@@ -36,7 +36,7 @@ def _create_chunked_task_signatures(
 
 
 @task
-def fetch_status_from_link(urls, report_pk):
+def fetch_status_from_links(urls, report_pk):
     for url in urls:
         response = requests.get(url)
 
@@ -86,7 +86,7 @@ def extract_information_from_page(page_url):
     # Note that from this point on we *have to use* update_fields=() to
     # avoid overwriting the `broken_links` counter in the middle of analysis
     fetch_broken_links_tasks = _create_chunked_task_signatures(
-        task=fetch_status_from_link,
+        task=fetch_status_from_links,
         items=list(links),
         chunk_size=25,
         task_args=(report.pk,),
