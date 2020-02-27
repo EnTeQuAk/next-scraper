@@ -125,24 +125,26 @@ def extract_information_from_page(page_url):
     ])
 
     login_form = pick_possible_login_form(tree.xpath("//form"))
-    report.contains_login_form = login_form is not None
+    report.may_contain_login_form = login_form is not None
 
     report.html_version = get_html_version_from_tree(tree)
     report.title = tree.xpath("string(//title)")
     report.headings = {
-        "h1": tree.xpath("count(//h1)"),
-        "h2": tree.xpath("count(//h2)"),
-        "h3": tree.xpath("count(//h3)"),
-        "h4": tree.xpath("count(//h4)"),
-        "h5": tree.xpath("count(//h5)"),
-        "h6": tree.xpath("count(//h6)"),
+        # We need to cast to int() here as count() returns a float
+        # but we really just want integer numbers.
+        "h1": int(tree.xpath("count(//h1)")),
+        "h2": int(tree.xpath("count(//h2)")),
+        "h3": int(tree.xpath("count(//h3)")),
+        "h4": int(tree.xpath("count(//h4)")),
+        "h5": int(tree.xpath("count(//h5)")),
+        "h6": int(tree.xpath("count(//h6)")),
     }
 
     report.save(
         update_fields=(
             "external_links",
             "internal_links",
-            "contains_login_form",
+            "may_contain_login_form",
             "html_version",
             "title",
             "headings",

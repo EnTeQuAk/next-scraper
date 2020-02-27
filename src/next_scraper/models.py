@@ -21,7 +21,7 @@ REPORT_STATES = {
 
 
 class Report(models.Model):
-    original_url = models.URLField()
+    original_url = models.URLField(unique=True)
     celery_group_id = models.UUIDField(null=True, default=None)
 
     state = models.PositiveSmallIntegerField(choices=REPORT_STATES.items(), default=NEW)
@@ -41,6 +41,6 @@ class Report(models.Model):
     # end-user sees.
     broken_links = models.PositiveIntegerField(default=0)
 
-    contains_login_form = models.BooleanField(default=False)
+    may_contain_login_form = models.BooleanField(default=False)
     status_code = models.PositiveSmallIntegerField(
         null=True, default=None, choices=HTTP_STATUS_CODES.items())

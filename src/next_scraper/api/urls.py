@@ -1,7 +1,13 @@
-# from django.urls import path
-# from .endpoints.scraper import StartUrlScrape
+from django.urls import path
+from rest_framework import routers
 
+from .endpoints.scraper import ReportViewSet, StartScrapeView
+
+router = routers.SimpleRouter()
+router.register(r'report', ReportViewSet)
 
 urlpatterns = [
-    #     path("scraper/start/", StartUrlScrape.as_view(), name="start-scraper"),
+    path("start/", StartScrapeView.as_view(), name="start-scraper"),
 ]
+
+urlpatterns += router.urls
