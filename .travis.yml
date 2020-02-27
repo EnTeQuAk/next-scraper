@@ -3,17 +3,7 @@ python:
   - '3.8'
 sudo: false
 
-addons:
-  postgresql: "12"
-  apt:
-    packages:
-    - postgresql-12
-    - postgresql-client-12
-
 env:
-  global:
-    - PGPORT=5433
-    - POSTGRES_PORT=5433
   matrix:
   - TOXENV=codestyle
   - TOXENV=main
