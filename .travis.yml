@@ -11,6 +11,9 @@ addons:
     - postgresql-client-12
 
 env:
+  global:
+    - PGPORT=5433
+    - POSTGRES_PORT=5433
   matrix:
   - TOXENV=codestyle
   - TOXENV=main
