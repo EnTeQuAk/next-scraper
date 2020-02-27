@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
+from django.contrib.postgres.fields import JSONField
+from django.db import models
+
 from werkzeug.http import HTTP_STATUS_CODES
 
-from django.db import models
-from django.contrib.postgres.fields import JSONField
-
 from .utils.html import HTML_VERSION_CHOICES
-
 
 NEW = 1
 RUNNING = 2
@@ -43,4 +42,5 @@ class Report(models.Model):
     broken_links = models.PositiveIntegerField(default=0)
 
     contains_login_form = models.BooleanField(default=False)
-    status_code = models.CharField(max_length=256, choices=HTTP_STATUS_CODES.items())
+    status_code = models.PositiveSmallIntegerField(
+        null=True, default=None, choices=HTTP_STATUS_CODES.items())

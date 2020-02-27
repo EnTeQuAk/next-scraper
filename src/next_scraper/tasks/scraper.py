@@ -1,4 +1,4 @@
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 
 import requests
 from celery import group
@@ -36,8 +36,11 @@ def _create_chunked_task_signatures(
 
 @task
 def fetch_status_from_links(urls, report_pk):
+    report = Report.objects.get(pk=report_pk)
+
     for url in urls:
-        response = requests.get(url)
+        full_url = urljoin(report.original_url, url)
+        response = requests.get(full_url)
 
         if not is_success(response.status_code):
             Report.objects.filter(pk=report_pk).update(
@@ -112,8 +115,14 @@ def extract_information_from_page(page_url):
     # for now till it grows too big.
     # Note that this doesn't properly take subdomains into account yet.
     base_domain = urlparse(page_url).netloc
-    report.external_links = len([x for x in links if urlparse(x).netloc != base_domain])
-    report.internal_links = len([x for x in links if urlparse(x).netloc == base_domain])
+    report.external_links = len([
+        x for x in links
+        if urlparse(x).netloc and urlparse(x).netloc != base_domain
+    ])
+    report.internal_links = len([
+        x for x in links
+        if urlparse(x).netloc == "" or urlparse(x).netloc == base_domain
+    ])
 
     login_form = pick_possible_login_form(tree.xpath("//form"))
     report.contains_login_form = login_form is not None

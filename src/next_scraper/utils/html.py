@@ -2,7 +2,6 @@ from collections import defaultdict
 
 from lxml import html
 
-
 HTML_VERSION_CHOICES = {
     "unknown": "Unknown",
     "html5": "HTML 5",
@@ -60,6 +59,14 @@ REVERSE_DOCTYPE_MAPPING = {value: key for key, value in HTML_DOCTYPE_MAPPING.ite
 
 
 def get_html_version_from_tree(tree):
+    """Get the doctype of a page.
+
+    Per spec a doctype is required -
+    https://html.spec.whatwg.org/multipage/syntax.html#the-doctype
+    but some pages don't properly set it.
+
+    LXML defaults to html4 transitional if none exists which should be fine.
+    """
     info = tree.getroottree().docinfo
     return REVERSE_DOCTYPE_MAPPING.get(
         (info.root_name, info.public_id, info.system_url), "unknown"

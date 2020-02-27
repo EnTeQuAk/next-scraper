@@ -1,20 +1,17 @@
-import os
-import os.path
-
 import pytest
 import responses
 
-from django.conf import settings as django_settings
-
 
 def pytest_configure(config):
-    if not django_settings.configured:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "next_scraper.conf.test")
-
-    # override a few things with our test specifics
-    django_settings.INSTALLED_APPS = tuple(django_settings.INSTALLED_APPS) + (
-        "next_scraper.tests",
-    )
+    import django
+    # Forcefully call `django.setup`, pytest-django tries to be very lazy
+    # and doesn't call it if it has already been setup.
+    # That is problematic for us since we overwrite our logging config
+    # in settings_test and it can happen that django get's initialized
+    # with the wrong configuration. So let's forcefully re-initialize
+    # to setup the correct logging config since at this point
+    # DJANGO_SETTINGS_MODULE should be `next_scraper.conf.test` every time.
+    django.setup()
 
 
 @pytest.fixture(autouse=True)

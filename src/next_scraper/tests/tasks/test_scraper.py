@@ -12,7 +12,7 @@ def example_page_structure():
         responses.GET,
         'https://example.com',
         content_type='text/html',
-        body='<html><a href="/broken">foo</a><a href="/success"></a>'
+        body='<!doctype html><html><a href="/broken">foo</a><a href="/success"></a>'
     )
     responses.add(
         responses.GET,

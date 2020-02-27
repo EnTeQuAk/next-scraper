@@ -15,18 +15,6 @@ RUN pip install supervisor
 RUN pip install watchdog[watchmedo]
 RUN pip install ipython
 
-# Preserve bash history across image updates.
-# This works best when you link your local source code
-# as a volume.
-ENV HISTFILE /code/docker/artifacts/bash_history
-
-# Configure bash history.
-ENV HISTSIZE 50000
-ENV HISTIGNORE ls:exit:"cd .."
-
-# This prevents dupes but only in memory for the current session.
-ENV HISTCONTROL erasedups
-
 COPY . /code
 WORKDIR /code
 
