@@ -1,10 +1,9 @@
 import pytest
 import responses
-
-from next_scraper.tasks.scraper import (
-    fetch_status_from_links, mark_report_as_completed,
-    extract_information_from_page)
-from next_scraper.models import Report, NEW, COMPLETED
+from next_scraper.models import COMPLETED, NEW, Report
+from next_scraper.tasks.scraper import (extract_information_from_page,
+                                        fetch_status_from_links,
+                                        mark_report_as_completed)
 
 
 @pytest.fixture(autouse=True)
@@ -56,8 +55,6 @@ def test_report_as_completed():
 def test_extract_information_from_page_basics():
     report_pk = extract_information_from_page('https://example.com')
 
-    from django.conf import settings
-    print('XXXXXXXXXXXX', settings.CELERY_TASK_ALWAYS_EAGER)
     report = Report.objects.get(pk=report_pk)
 
     assert report.state == COMPLETED

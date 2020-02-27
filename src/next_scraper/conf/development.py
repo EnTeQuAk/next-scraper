@@ -25,3 +25,5 @@ LOGGING = {
         "celery": {"handlers": ["console"], "level": "DEBUG", "propagate": False},
     },
 }
+
+CELERY_TASK_ALWAYS_EAGER = False

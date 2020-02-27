@@ -61,7 +61,7 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {"default": env.db_url(default="psql://scraper:@db/scraper")}
+DATABASES = {"default": env.db_url(default="psql://postgres:@localhost/scraper")}
 
 # Run all views in a transaction unless they are decorated not to.
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -97,9 +97,8 @@ CELERY_TASK_IGNORE_RESULT = False
 # for details.
 BROKER_TRANSPORT_OPTIONS = {"fanout_prefix": True, "fanout_patterns": True}
 
-# Force always eager to be False (it's by default but here for documentation)
-CELERY_ALWAYS_EAGER = False
-CELERY_EAGER_PROPAGATES_EXCEPTIONS = False
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_EAGER_PROPAGATES = True
 
 # Track started tasks. This adds a new STARTED state once a task
 # is started by the celery worker.

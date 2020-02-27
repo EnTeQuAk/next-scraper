@@ -3,6 +3,9 @@ python:
   - '3.8'
 sudo: false
 
+addons:
+  postgresql: "12"
+
 env:
   matrix:
   - TOXENV=codestyle
@@ -10,6 +13,7 @@ env:
 
 services:
   - redis-server
+  - postgresql
 
 cache:
   apt: true
@@ -18,6 +22,9 @@ cache:
 install:
   - pip install tox
   - make develop
+
+before_script:
+  - psql -c 'create database scraper;' -U postgres
 
 script:
   - RUNNING_IN_CI=True tox -v
