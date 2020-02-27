@@ -6,13 +6,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('next_scraper', '0005_auto_20200227_1219'),
+        ("next_scraper", "0005_auto_20200227_1219"),
     ]
 
     operations = [
         migrations.RenameField(
-            model_name='report',
-            old_name='contains_login_form',
-            new_name='may_contain_login_form',
+            model_name="report",
+            old_name="contains_login_form",
+            new_name="may_contain_login_form",
         ),
     ]

@@ -22,8 +22,7 @@ REPORT_STATES = {
 
 
 class Report(models.Model):
-    created = models.DateTimeField(
-        default=timezone.now, editable=False, blank=True)
+    created = models.DateTimeField(default=timezone.now, editable=False, blank=True)
 
     original_url = models.URLField(unique=True)
     celery_group_id = models.UUIDField(null=True, default=None)
@@ -47,4 +46,5 @@ class Report(models.Model):
 
     may_contain_login_form = models.BooleanField(default=False)
     status_code = models.PositiveSmallIntegerField(
-        null=True, default=None, choices=HTTP_STATUS_CODES.items())
+        null=True, default=None, choices=HTTP_STATUS_CODES.items()
+    )

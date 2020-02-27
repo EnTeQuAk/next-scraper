@@ -12,22 +12,19 @@ from next_scraper.models import COMPLETED, Report
 def example_page_structure():
     responses.add(
         responses.GET,
-        'https://example.com',
-        content_type='text/html',
-        body='<!doctype html><html><a href="/broken">foo</a><a href="/success"></a>'
+        "https://example.com",
+        content_type="text/html",
+        body='<!doctype html><html><a href="/broken">foo</a><a href="/success"></a>',
     )
     responses.add(
         responses.GET,
-        'https://example.com/broken',
-        content_type='text/html',
+        "https://example.com/broken",
+        content_type="text/html",
         status=404,
-        body='Not Found'
+        body="Not Found",
     )
     responses.add(
-        responses.GET,
-        'https://example.com/success',
-        content_type='text/html',
-        body=''
+        responses.GET, "https://example.com/success", content_type="text/html", body=""
     )
 
 
@@ -37,7 +34,7 @@ def test_start_simple():
 
     assert Report.objects.count() == 0
 
-    response = APIClient().post(url, data={'url': 'https://example.com'})
+    response = APIClient().post(url, data={"url": "https://example.com"})
 
     assert response.status_code == 201
 
@@ -51,16 +48,9 @@ def test_start_simple():
     assert report.external_links == 0
     assert report.celery_group_id is not None
     assert not report.may_contain_login_form
-    assert report.html_version == 'html5'
-    assert report.title == ''
-    assert report.headings == {
-        "h1": 0,
-        "h2": 0,
-        "h3": 0,
-        "h4": 0,
-        "h5": 0,
-        "h6": 0
-    }
+    assert report.html_version == "html5"
+    assert report.title == ""
+    assert report.headings == {"h1": 0, "h2": 0, "h3": 0, "h4": 0, "h5": 0, "h6": 0}
 
 
 @pytest.mark.django_db
@@ -72,9 +62,7 @@ def test_start_no_url():
     response = APIClient().post(url, data={})
 
     assert response.status_code == 400
-    assert response.json() == {
-        "error": "URL is required"
-    }
+    assert response.json() == {"error": "URL is required"}
 
 
 @pytest.mark.django_db
@@ -91,11 +79,11 @@ def test_start_duplicate_report():
 @pytest.mark.django_db
 def test_report_simple():
     response = APIClient().post(
-        reverse("api:start-scraper"),
-        data={"url": "https://example.com"})
+        reverse("api:start-scraper"), data={"url": "https://example.com"}
+    )
     assert response.status_code == 201
 
-    url = reverse("api:report-detail", kwargs={'url': "https://example.com"})
+    url = reverse("api:report-detail", kwargs={"url": "https://example.com"})
 
     response = APIClient().get(url)
     assert response.status_code == 200
@@ -104,13 +92,13 @@ def test_report_simple():
         "broken_links": 1,
         "created": mock.ANY,
         "external_links": 0,
-        "headings": {'h1': 0, 'h2': 0, 'h3': 0, 'h4': 0, 'h5': 0, 'h6': 0},
-        "html_version": 'html5',
+        "headings": {"h1": 0, "h2": 0, "h3": 0, "h4": 0, "h5": 0, "h6": 0},
+        "html_version": "html5",
         "id": mock.ANY,
         "internal_links": 2,
         "may_contain_login_form": False,
-        "original_url": 'https://example.com',
+        "original_url": "https://example.com",
         "state": COMPLETED,
         "status_code": 200,
-        "title": ''
+        "title": "",
     }

@@ -7,18 +7,20 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('next_scraper', '0006_auto_20200227_1310'),
+        ("next_scraper", "0006_auto_20200227_1310"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='report',
-            name='created',
-            field=models.DateTimeField(blank=True, default=django.utils.timezone.now, editable=False),
+            model_name="report",
+            name="created",
+            field=models.DateTimeField(
+                blank=True, default=django.utils.timezone.now, editable=False
+            ),
         ),
         migrations.AlterField(
-            model_name='report',
-            name='original_url',
+            model_name="report",
+            name="original_url",
             field=models.URLField(unique=True),
         ),
     ]

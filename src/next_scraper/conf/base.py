@@ -105,15 +105,12 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # is started by the celery worker.
 CELERY_TRACK_STARTED = True
 
-CELERY_IMPORTS = (
-    "next_scraper.tasks.scraper",
-    "next_scraper.tasks.cleanup"
-)
+CELERY_IMPORTS = ("next_scraper.tasks.scraper", "next_scraper.tasks.cleanup")
 
 CELERY_BEAT_SCHEDULE = {
     "cleanup-rules": {
         "task": "next_scraper.tasks.cleanup",
-        "schedule": crontab(minute=0, hour=3)
+        "schedule": crontab(minute=0, hour=3),
     }
 }
 

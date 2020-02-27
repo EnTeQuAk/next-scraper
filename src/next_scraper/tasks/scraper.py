@@ -78,8 +78,8 @@ def extract_information_from_page(page_url):
     links = [
         link
         for link in tree.xpath("//a/@href")
-        if not link.startswith("#") and
-        link not in ("javascript:;", "javascript:void(0)")
+        if not link.startswith("#")
+        and link not in ("javascript:;", "javascript:void(0)")
     ]
 
     # Now let's start fetching broken links from the page in the background
@@ -115,14 +115,16 @@ def extract_information_from_page(page_url):
     # for now till it grows too big.
     # Note that this doesn't properly take subdomains into account yet.
     base_domain = urlparse(page_url).netloc
-    report.external_links = len([
-        x for x in links
-        if urlparse(x).netloc and urlparse(x).netloc != base_domain
-    ])
-    report.internal_links = len([
-        x for x in links
-        if urlparse(x).netloc == "" or urlparse(x).netloc == base_domain
-    ])
+    report.external_links = len(
+        [x for x in links if urlparse(x).netloc and urlparse(x).netloc != base_domain]
+    )
+    report.internal_links = len(
+        [
+            x
+            for x in links
+            if urlparse(x).netloc == "" or urlparse(x).netloc == base_domain
+        ]
+    )
 
     login_form = pick_possible_login_form(tree.xpath("//form"))
     report.may_contain_login_form = login_form is not None
