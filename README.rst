@@ -10,7 +10,6 @@ Scrape URL to find dead links
 Documentation
 -------------
 
-
 /api/start/
 ===========
 
@@ -47,6 +46,7 @@ be filled in. Usually getting the final numbers of ``broken_links`` takes some a
 
 Please note that reports are bein cleaned up when older than 24 hours. During that time we do not scrape the URL again.
 
+
 Installation
 ------------
 
@@ -56,7 +56,7 @@ environment. So please make sure you have both installed.
 .. code-block:: bash
 
     $ # Clone repository
-    $ git clone git@github.com:EnTeQuAk/next_scraper.git
+    $ git clone git@github.com:EnTeQuAk/next-scraper.git
 
     $ # Startup all services
     $ docke-compose up -d
