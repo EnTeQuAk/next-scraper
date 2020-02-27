@@ -6,4 +6,4 @@ from next_scraper.models import Report
 class ReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = Report
-        fields = '__all__'
+        exclude = ('celery_group_id',)

@@ -7,6 +7,46 @@ Scrape URL to find dead links
     :alt: Travis build status
 
 
+Documentation
+-------------
+
+
+/api/start/
+===========
+
+Start a scraping process for a specific URL. It returns with ``201 CREATED`` in case of
+successfully starting the process.
+
+You can look at the ``/api/report/`` endpoint to see the results.
+
+Arguments:
+
+* **url**: The URL you want to scrape.
+
+/api/report/
+============
+
+See the result of a scraping process.
+
+    * **broken_links**: The amount of broken or unreachable links.
+    * **created**: The date this scraping process got started
+    * **external_links**: The amount of external links, leaving the base domain.
+    * **internal_links**: The amount of internal links, staying in the realms of the same domain.
+    * **headings**: An object documenting the count of all headings on the page.
+    * **html_version**: The detected HTML version.
+    * **id**: The internal ID
+    * **may_contain_login_form**: Boolean determining if the page may or may not have a login form.
+    * **original_url**: The URL this scraping process got requested for.
+    * **state**: The state of this process. ``2`` is running, ``4`` completed and ``3`` means it failed for some reason and got aborted.
+    * **status_code**: The HTTP status code we received for the requested URL.
+    * **title**: The page title.
+
+
+If the scraping process is still in progress you'll see the ``state`` be set to ``2`` and not all information
+be filled in. Usually getting the final numbers of ``broken_links`` takes some additional time.
+
+Please note that reports are bein cleaned up when older than 24 hours. During that time we do not scrape the URL again.
+
 Installation
 ------------
 

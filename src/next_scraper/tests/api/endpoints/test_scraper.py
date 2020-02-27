@@ -102,7 +102,7 @@ def test_report_simple():
 
     assert response.json() == {
         "broken_links": 1,
-        "celery_group_id": mock.ANY,
+        "created": mock.ANY,
         "external_links": 0,
         "headings": {'h1': 0, 'h2': 0, 'h3': 0, 'h4': 0, 'h5': 0, 'h6': 0},
         "html_version": 'html5',

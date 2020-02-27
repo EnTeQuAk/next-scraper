@@ -1,6 +1,7 @@
 import os
 
 import environ
+from celery.schedules import crontab
 from kombu import Queue
 
 env = environ.Env()
@@ -104,7 +105,17 @@ CELERY_TASK_EAGER_PROPAGATES = True
 # is started by the celery worker.
 CELERY_TRACK_STARTED = True
 
-CELERY_IMPORTS = ("next_scraper.tasks.scraper",)
+CELERY_IMPORTS = (
+    "next_scraper.tasks.scraper",
+    "next_scraper.tasks.cleanup"
+)
+
+CELERY_BEAT_SCHEDULE = {
+    "cleanup-rules": {
+        "task": "next_scraper.tasks.cleanup",
+        "schedule": crontab(minute=0, hour=3)
+    }
+}
 
 CELERY_QUEUES = (
     Queue("default", routing_key="default"),

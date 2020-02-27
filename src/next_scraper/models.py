@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.postgres.fields import JSONField
 from django.db import models
+from django.utils import timezone
 
 from werkzeug.http import HTTP_STATUS_CODES
 
@@ -21,6 +22,9 @@ REPORT_STATES = {
 
 
 class Report(models.Model):
+    created = models.DateTimeField(
+        default=timezone.now, editable=False, blank=True)
+
     original_url = models.URLField(unique=True)
     celery_group_id = models.UUIDField(null=True, default=None)
 
