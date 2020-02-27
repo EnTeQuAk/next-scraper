@@ -78,8 +78,8 @@ def extract_information_from_page(page_url):
     links = [
         link
         for link in tree.xpath("//a/@href")
-        if not link.startswith("#")
-        and link not in ("javascript:;", "javascript:void(0)")
+        if not link.startswith("#") and
+        link not in ("javascript:;", "javascript:void(0)")
     ]
 
     # Now let's start fetching broken links from the page in the background
