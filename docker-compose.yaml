@@ -24,6 +24,8 @@ services:
   web:
     <<: *worker
     command: supervisord -n -c /code/docker/supervisor.conf
+    ports:
+     - "8000:8000"
 
   redis:
     image: redis:2.8

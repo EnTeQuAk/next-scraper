@@ -56,7 +56,7 @@ update-docker:
 migrate-docker:
 	docker-compose exec web ./manage.py migrate
 
-initialize-docker: update-docker migrate
+setup-docker: update-docker migrate-docker
 
 shell:
 	docker-compose exec web bash
