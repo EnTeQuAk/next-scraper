@@ -21,7 +21,7 @@ psycopg2
 celery==4.4.0
 
 # For our REST Api
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 
 # Redis
 redis==3.4.1
