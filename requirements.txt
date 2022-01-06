@@ -18,7 +18,7 @@ werkzeug
 psycopg2
 
 # For async worker support
-celery==4.4.0
+celery==5.2.2
 
 # For our REST Api
 djangorestframework==3.11.0
